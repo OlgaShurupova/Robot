@@ -5,8 +5,88 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Robot"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
+        Title="MainWindow" Height="600" Width="800" WindowStartupLocation="CenterScreen">
+
+    <Grid Background="{StaticResource FirstBackgroundBrush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Блок выполнения алгоритма-->
+        <Canvas Background="{StaticResource SecondBackgroundBrush}"
+                x:Name="NewCanvas"/>
+        <Canvas x:Name="Background"
+            Width="{Binding ActualWidth, ElementName=MainCanvas}"
+            Height="{Binding ActualHeight, ElementName=MainCanvas}"
+            SizeChanged="WindowChangeHandler"/>
+        <Canvas x:Name="MainCanvas"/>
+
+        <!-- Блок выбора алгоритма, контроля его выполнения и задания свойств-->
+        <Grid Grid.Column="1" x:Name="AlgorithmColumn">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0">
+                <Button Content="Открыть алгоритм"
+                    Click="OpenAlgorithmClick"
+                    x:Name="OpenAlgorithmButton"/>
+                <Button  Content="Новый алгоритм"
+                     Click="NewAlgorithmClick"/>
+                <Button Content="Старт"
+                    Click="StartClick"/>
+                <Button Content="Стоп"
+                        Click="StopClick"
+                        x:Name="StopButton"/>
+
+                <Button Content="Шаг"
+                    Click="StepClick"/>
+
+                <Button Content="Положение робота"
+                        Click="ChangeRobotPosition"/>
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Интервал перехода (c):"/>
+                    <TextBox x:Name="Interval"/>
+                </StackPanel>
+
+                <!-- Блок отображения координат робота -->
+                <TextBlock Text="Положение робота на сетке:"/>
+                <StackPanel Orientation="Horizontal" >
+                    <TextBlock Text="X:"/>
+                    <TextBlock x:Name="RobotPositionX"
+                               Text="{Binding Path=Position.X}"/>
+                    <TextBlock Text="Y:"/>
+                    <TextBlock x:Name="RobotPositionY"
+                               Text="{Binding Path=Position.Y}"/>
+                </StackPanel>
+
+            </StackPanel>
+
+
+
+
+            <!-- Блок вывода алгоритма -->
+            <ScrollViewer Grid.Row="1" >
+                <ListView x:Name="ActionsList" Background="{StaticResource FirstBackgroundBrush}">
+                    <ListView.View>
+                        <GridView>
+                            <GridView.Columns>
+                                <GridViewColumn Header="№" 
+                                            DisplayMemberBinding="{Binding CurrentAction.Number}"/>
+                                <GridViewColumn Header="Команда" 
+                                            DisplayMemberBinding="{Binding CurrentAction.Type, Converter={StaticResource EnumConverter}}"/>
+                            </GridView.Columns>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+
+            </ScrollViewer>
+        </Grid>
+
+        <!--</StackPanel>-->
     </Grid>
+
 </Window>
