@@ -87,6 +87,7 @@ namespace Robot
             }
             catch
             {
+                _timer.Stop();
                 MessageBox.Show("Роботу встретился незнакомый цвет", "Ошибка");
             }
             if (_algorithmWork.CheckPosition(_algorithm, _robot)) UpdateCanvas();

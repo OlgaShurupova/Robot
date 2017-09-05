@@ -58,7 +58,7 @@
                         </GridViewColumn>
                         <GridViewColumn Header="Команда" 
                                         Width="135"
-                                        DisplayMemberBinding="{Binding Value.Action, Converter={StaticResource EnumConverter}}" />
+                                        DisplayMemberBinding="{Binding Value.Type, Converter={StaticResource EnumConverter}}" />
                         <GridViewColumn Header="№"
                                         Width="Auto"
                                         DisplayMemberBinding="{Binding Value.Number}" />

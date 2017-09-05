@@ -72,7 +72,6 @@ namespace Robot
             else MessageBox.Show("Алгоритм не сохранен", "Ошибка");
         }
 
-
         /// <summary>
         /// Выбор соответсвующего шаблона при выборе в списке. 
         /// </summary>
@@ -150,7 +149,6 @@ namespace Robot
                     break;
             }
         }
-
         private void CancelClick(object sender, RoutedEventArgs e)
         {
             Close();
