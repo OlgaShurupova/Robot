@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media;
@@ -45,14 +46,21 @@ namespace Robot
         /// <param name="e"></param>
         private void OpenAlgorithmClick(object sender, RoutedEventArgs e)
         {
-            var service = new Service();
+            var service = new Service();            
             var dialog = new Microsoft.Win32.OpenFileDialog();
-            if (dialog.ShowDialog() == true)
+
+            if (Directory.Exists(Path.Combine("Data")))
             {
-                _algorithm = service.ReadAlgorithm(dialog.FileName);
-                RefreshData();
-                DrawNewField();
+                dialog.InitialDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Data");
+
+                if (dialog.ShowDialog() == true)
+                {
+                    _algorithm = service.ReadAlgorithm(dialog.FileName);
+                    RefreshData();
+                    DrawNewField();
+                }
             }
+            else MessageBox.Show("Ещё не создано ни одного алгоритма", "Ошибка");
         }
 
         /// <summary>

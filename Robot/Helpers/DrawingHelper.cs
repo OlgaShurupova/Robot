@@ -34,10 +34,17 @@ namespace Robot
         /// <param name="rotateTransform"></param>
         /// <returns></returns>
         private ImageBrush GetImageBrush(RotateTransform rotateTransform)
-        {
-            var path = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "walle" + ".jpg");
-            var imageSource = new BitmapImage(new Uri(path, UriKind.Relative));
-            var imageBrush = new ImageBrush() { ImageSource = imageSource, RelativeTransform = rotateTransform };
+        {           
+            var source = Properties.Resources.walle;
+
+            var imageSource= System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap( 
+                source.GetHbitmap(),
+                IntPtr.Zero,
+                System.Windows.Int32Rect.Empty,
+                BitmapSizeOptions.FromEmptyOptions());
+
+            var imageBrush = new ImageBrush() { ImageSource = imageSource, RelativeTransform = rotateTransform };      
+
             return imageBrush;
         }
 

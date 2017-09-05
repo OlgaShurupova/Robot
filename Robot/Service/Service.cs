@@ -44,10 +44,10 @@ namespace Robot
         /// <returns></returns>
         public void WriteAlgorithm(Algorithm algorithm)
         {
-            var path = GetPath(algorithm.Name);       
-
+            var path = GetPath(algorithm.Name);                 
             var serList = JsonConvert.SerializeObject(algorithm, _settings);
-            WriteFile(serList, path);
+            if (!Directory.Exists(Path.Combine("Data"))) Directory.CreateDirectory(Path.Combine("Data"));
+            WriteFile(serList, path);       
         }    
 
         /// <summary>
