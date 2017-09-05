@@ -20,7 +20,7 @@
         <StackPanel Orientation="Horizontal">
 
             <TextBlock Text="Цвет:"/>
-            <xctk:ColorPicker x:Name="Color" />
+            <xctk:ColorPicker x:Name="NewColor" />
 
         </StackPanel>
 
@@ -28,8 +28,7 @@
         <StackPanel Orientation="Horizontal">
             <ComboBox  
                     x:Name="ActionType"                                        
-                    ItemsSource="{Binding Source={StaticResource ActionNameODP}}"
-                    SelectedItem="{Binding BorderAction}">
+                    ItemsSource="{Binding Source={StaticResource ActionNameODP}}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Converter={StaticResource EnumConverter}}" />

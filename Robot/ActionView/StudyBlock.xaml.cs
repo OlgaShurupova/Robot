@@ -21,17 +21,26 @@ namespace Robot
             InitializeComponent();
             _algorithmWindow = algorithmWindow;
             _isEdit = false;
-            _study.CurrentAction.Type = AllActions.Study;
+            SetDefaultValues();       
             ActionsList.ItemsSource = _study.DictionaryActionForColor;
         }
 
         public StudyBlock(AbstractAction action, AlgorithmWindow algorithmWindow)
         {
             InitializeComponent();
+            _study=action as Study;
             _algorithmWindow = algorithmWindow;
             _isEdit = true;
-            _study.CurrentAction.Type = AllActions.Study;
+            SetDefaultValues();
             ActionsList.ItemsSource = _study.DictionaryActionForColor;
+        }
+
+        private void SetDefaultValues()
+        {
+            NewColor.SelectedColor = Color.FromRgb(0, 0, 0);
+            ActionType.SelectedItem = AllActions.Move;
+            ActionNumber.Text = "1";
+            _study.CurrentAction.Type = AllActions.Study;
         }
 
         private void AddCommand(object sender, RoutedEventArgs e)
@@ -46,11 +55,28 @@ namespace Robot
 
         private void AddActionForColorClick(object sender, RoutedEventArgs e)
         {
-            var color = (Color)Color.SelectedColor;
-            var type = (AllActions)ActionType.SelectedItem;
-            var number = int.Parse(ActionNumber.Text);
+            var color = (Color)NewColor.SelectedColor;
+            if (CheckColor(color))
+            {
+                var type = (AllActions)ActionType.SelectedItem;
+                var number = int.Parse(ActionNumber.Text);
+                _study.DictionaryActionForColor.Add(color, new ActionHelper(type, number));
+            }
+            
+        }
 
-            _study.DictionaryActionForColor.Add(color, new ActionHelper(type, number));
+        /// <summary>
+        /// Проверяет, содержится ли выбранный цвет в словаре
+        /// </summary>
+        /// <param name="color"></param>
+        /// <returns></returns>
+        private bool CheckColor(Color color)
+        {
+            foreach(var currentColor in _study.DictionaryActionForColor)
+            {
+                if (currentColor.Key == color) return false;
+            }
+            return true;
         }
     }
 }

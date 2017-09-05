@@ -8,11 +8,7 @@ namespace Robot
 {
     public class Study : AbstractAction
     {
-        /// <summary>
-        /// Действие, если текущая ячейка лежит на границе
-        /// </summary>
-        public AllActions BorderAction { get; set; }       
-        
+              
         /// <summary>
         /// Cловарь, устанавливающий соответствие "цвет-действие"
         /// </summary>
